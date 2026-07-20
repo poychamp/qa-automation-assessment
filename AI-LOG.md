@@ -94,6 +94,37 @@ or corrected, outcome.
   that deleting it restores full speed. Defaults still mean the suite runs
   with no setup at all.
 
+## Jul 20 2026 - Part 2 drafting
+
+- I set the scenario assumption myself: the response-event recorder is a
+  webhook handler writing directly to the data store, no ingest queue.
+  Claude's first draft assumed a queue on the ingest side. The rewrite
+  under my assumption surfaced a sharper point, that a synchronous handler
+  turns any transient failure into permanent loss.
+- I pushed back twice on the duplicate-events story: first that a good
+  database would not produce duplicates from one call (true but the
+  premise is wrong, providers cannot guarantee one call), then that
+  webhooks do not retry. We verified against provider docs instead of
+  arguing: Vonage retries delivery receipts every minute for 24 hours,
+  Twilio retries status callbacks only a few times then drops them with
+  no replay, Stripe retries for 3 days. Both sides of the draft got
+  stronger, the over-count now cites Vonage's 24-hour hammering and the
+  under-count cites Twilio's permanent loss after a few attempts.
+
+## Jul 20 2026 - more written-part corrections
+
+- Part 2 Q3 first draft said to re-run the reconciliation 24 to 48 hours
+  later. I pushed back that in a live production issue you do not wait two
+  days. The fix was better than the original: the bad windows from earlier
+  in the week already aged, so you re-run them immediately. The answer now
+  reads like incident triage instead of a scheduled experiment.
+- Part 3 auth plan said a protected endpoint without a session "returns an
+  auth error". I made it specify the three distinct correct behaviors: no
+  session on a browser page redirects to login, no session on an API call
+  returns 401, a valid session without permission returns 403. The 401
+  versus 403 mix-up is a real bug class and the vague version would have
+  read as textbook.
+
 ## Jul 20 2026 - this log ships
 
 - Decided to commit this log to the repo as raw evidence for the README's AI
