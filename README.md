@@ -65,7 +65,7 @@ A note on honest assertions: this API returns 200 on create, 201 on delete, and 
 
 This suite was co-built with Claude (Anthropic's CLI). The raw working log is committed as [AI-LOG.md](./AI-LOG.md); the short version:
 
-**Delegated**: scaffolding (package.json, config, folder layout), first drafts of the spec files and helpers after the shape of each suite was agreed, and the mechanical parts of DOM verification.
+**Delegated, and accepted after review**: scaffolding (package.json, config, folder layout), first drafts of the spec files and helpers after the shape of each suite was agreed, and the mechanical parts of DOM verification. The drafts held up because the design decisions were settled before the code was written.
 
 **Kept my hands on**: every design decision, and each one is logged. The UI vs API split, self-contained fixtures over shared state, one journey test instead of fragmented steps, no page-object layer for a suite this size, env-overridable credentials with published defaults instead of secret machinery that would break the zero-setup clone.
 
