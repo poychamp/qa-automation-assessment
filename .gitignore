@@ -1,0 +1,11 @@
+node_modules/
+.idea/
+
+# Playwright artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# working notes - remove this line if AI-LOG.md ships with the repo
+AI-LOG.md
