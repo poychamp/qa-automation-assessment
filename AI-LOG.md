@@ -84,6 +84,16 @@ or corrected, outcome.
   it: SLOWMO=600 gives a watchable run, default is zero delay. Verified
   both modes still pass.
 
+## Jul 20 2026 - dotenv after all
+
+- Originally decided against dotenv to keep the suite zero-dependency, with
+  env vars set from the shell. Reversed when writing the README: I wanted
+  the standard "copy .env.example to .env" instruction, and that is only
+  honest if the file actually loads. Added dotenv (quiet, tolerant of the
+  file being absent), verified a .env with SLOWMO=900 slows the run and
+  that deleting it restores full speed. Defaults still mean the suite runs
+  with no setup at all.
+
 ## Jul 20 2026 - this log ships
 
 - Decided to commit this log to the repo as raw evidence for the README's AI

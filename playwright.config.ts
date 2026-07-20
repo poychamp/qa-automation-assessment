@@ -1,4 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+
+// Optional local overrides; see .env.example. Absent file is fine.
+dotenv.config({ quiet: true });
 
 export default defineConfig({
   testDir: './tests',
