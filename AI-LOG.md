@@ -43,6 +43,47 @@ or corrected, outcome.
   delete proven by re-read 404 not by delete's status alone.
 - Suite run twice back-to-back against the live sandbox: 8/8 both times.
 
+## Jul 20 2026 - UI suite prep
+
+- I asked how Claude knew saucedemo's selectors without visiting the site.
+  Answer: training data, i.e. memory, not verification. So before writing any
+  UI test we drove the real site in Chrome and read the live DOM at every step
+  of the journey (login, locked-out error, inventory, cart, checkout
+  validation, overview totals, completion page).
+- The check caught a real staleness bug: the site now uses kebab-case
+  data-test attributes (shopping-cart-badge, shopping-cart-link) where
+  Claude's memory had older underscore versions (shopping_cart_badge).
+  Locators written from memory would have failed. All locators and expected
+  strings in the UI specs are pinned to the DOM as observed today, including
+  the exact error messages and the $39.98 item total for the two journey
+  items.
+
+## Jul 20 2026 - UI suite
+
+- Delegated both specs to Claude after the live DOM verification. Shape
+  agreed beforehand: one end-to-end journey test (login, add two items,
+  cart contents, checkout, overview totals, confirmation) rather than
+  fragmented steps, because the UI layer's job here is proving the flow
+  wires together; isolated validation lives in the API suite.
+- The overview assertion computes the expected item total from the listed
+  item prices instead of hardcoding $39.98, so the test states the rule,
+  not the coincidence.
+- Set Playwright's testIdAttribute to data-test so locators use
+  page.getByTestId against saucedemo's own hooks. No CSS-class selectors,
+  no sleeps, auto-waiting assertions only.
+- UI suite passed first run; full suite (8 API + 3 UI) passed twice
+  back-to-back.
+
+## Jul 20 2026 - slow motion demo runs
+
+- I wanted to watch the headed run, so we added slowMo temporarily. I asked
+  whether the assessment's "no sleeps" bar forbids it; distinction drawn:
+  slowMo is a uniform launch-option throttle for demos, not a hard wait
+  inside test logic, but a hardcoded 600ms would read as a debugging
+  leftover (or worse, sleep-dependence) to a reviewer. Ended up env-gating
+  it: SLOWMO=600 gives a watchable run, default is zero delay. Verified
+  both modes still pass.
+
 ## Jul 20 2026 - this log ships
 
 - Decided to commit this log to the repo as raw evidence for the README's AI

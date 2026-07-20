@@ -17,6 +17,10 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://www.saucedemo.com',
+        // saucedemo marks elements with data-test, not the default data-testid
+        testIdAttribute: 'data-test',
+        // Demo/debug aid for headed runs, off by default (SLOWMO=600 to enable)
+        launchOptions: { slowMo: Number(process.env.SLOWMO ?? 0) },
       },
     },
     {
