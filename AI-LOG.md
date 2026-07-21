@@ -125,8 +125,39 @@ or corrected, outcome.
   versus 403 mix-up is a real bug class and the vague version would have
   read as textbook.
 
+## Jul 21 2026 - Parts 3 and 4 drafting
+
+- I chose authentication over bulk sending for the Part 3 plan, because I
+  have built and shipped auth in production. I also overrode the standard
+  smoke-versus-regression split: for auth, everything cheap runs every
+  release, and only checks that need time or mail infrastructure go to a
+  scheduled pass. Claude pushed back that "everything in smoke" reads as
+  refusing to decide, and the final answer keeps my stance but states the
+  physical constraints as the only dividing line.
+- I repeatedly rejected Claude's dramatized register in the written drafts,
+  detective narration, punchy one-liners, decorative metaphors. The final
+  register is flat procedural first person. I also corrected specific
+  wording, plainer phrasing over jargon like "campaign overlap" and
+  "suppression rules".
+- I added the check-with-the-provider escalation as a last resort to the
+  Part 4 isolation answer, and connected the duplicate-send mechanism to
+  duplicates I have seen with Firebase push notifications, which Claude
+  confirmed is the same at-least-once delivery behavior.
+
 ## Jul 20 2026 - this log ships
 
 - Decided to commit this log to the repo as raw evidence for the README's AI
   usage section, rather than keeping it as local notes. The README section
   stays the summary; this file is the receipts.
+
+## Jul 21 2026 - final entry
+
+- Claude assembled the written parts into one paste-ready document from the
+  drafts as they stood after my corrections. Final tally for the whole
+  assessment: the test suite is 11 tests passing repeatedly, and every
+  status code, selector, and provider behavior asserted anywhere was
+  verified against a live system or vendor documentation before we trusted
+  it. The pattern that held all night: Claude drafts fast and confidently,
+  and the confidence is not evidence. The value came from treating every
+  claim as unverified until probed, and the corrections in this log are
+  where that testing instinct earned its keep.
